@@ -154,6 +154,7 @@ public class Obligatorio implements IObligatorio {
 //        IMPORTATNE DONDE DA EL ERROR COMO SE MUESTRA
         if (unNodoVuelo != null && ranking>=0 && ranking<=5) {
             ret.valorbooleano = unNodoVuelo.getLc().agregarComentario(comentario, ranking).valorbooleano;
+                 
             ret.valorString = "Se agrego su comentario al vuelo";
         }
         return ret;
@@ -161,12 +162,39 @@ public class Obligatorio implements IObligatorio {
 
     @Override
     public Retorno realizarReserva(int cliente, int numero, String aerolinea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     Retorno ret = new Retorno(Retorno.Resultado.OK);
+         
+     ret.valorbooleano = this.lVuelos.buscarElemento(numero, aerolinea)
+     .unNodoVuelo.getLr().agregarReserva(cliente, numero, aerolinea)
+     .valorbooleano;
+          if(!ret.valorbooleano){
+                ret.valorbooleano = this.lVuelos.
+                buscarElemento(numero, aerolinea)
+                .unNodoVuelo.getLcola().Encolar(cliente, numero, aerolinea)
+                .valorbooleano;                
+          }
+         
+                 return ret;
     }
 
     @Override
     public Retorno cancelarReserva(int cliente, int numero, String aerolinea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        boolean esLlenaReservas = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().esLlena().valorbooleano;    
+        boolean esVaciaCola = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().esVacia().valorbooleano;
+        if(esLlenaReservas && !esVaciaCola){
+            this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().borrarReserva(cliente, numero, aerolinea);
+           NodoCola unNodoCola = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().desencolar(cliente, numero, aerolinea).unNodoCola;
+           this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr()
+           .agregarReserva(unNodoCola.getCliente(), unNodoCola.getNumero(), unNodoCola.getAerolinea());
+           
+        
+        }else if(esVaciaCola){
+            ret.valorbooleano = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().borrarReserva(cliente, numero, aerolinea).valorbooleano;
+        }
+    
+        
+        return ret;
     }
 
     @Override
@@ -186,7 +214,12 @@ public class Obligatorio implements IObligatorio {
 
     @Override
     public Retorno listarComentarios(int numero, String aerolinea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoVuelo unVuelo =  lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo;
+        ret.valorString = unVuelo.getLc().mostrar().valorString;
+        if(ret.valorString.equals("\n"))
+            ret.valorString = "No se han agregado comentarios al vuelo numero " + numero +" de la aerolinea "+ aerolinea + "." ;       
+        return ret;
     }
 
     @Override

@@ -12,6 +12,8 @@ public class Retorno {
         NodoCiudad unNodoCiudad;
         NodoVuelo unNodoVuelo;
         NodoServicio unNodoServicio;
+        NodoReserva unNodoReserva;
+        NodoCola unNodoCola;
 
     public Retorno(Resultado resultado) {
 

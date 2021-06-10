@@ -47,8 +47,19 @@ public class OblMarzo2021 {
 
         p.ver(o.registrarVuelo(3, "Copa Airlines", "Montevideo", "Panama", 5, 230, cal, 8).resultado, Retorno.Resultado.OK, "Se registro vuelo  Montevideo-San Pablo ");
         p.ver(o.registrarVuelo(2, "Gol", "Montevideo", "San Pablo", 3, 250, cal, 1).resultado, Retorno.Resultado.OK, "Se registro vuelo  Montevideo-San Pablo ");
-        p.ver(o.registrarVuelo(1, "Latam", "Montevideo", "Buenos Aires", 4, 200, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
+        p.ver(o.registrarVuelo(1, "Latam", "Montevideo", "Buenos Aires", 4, 2, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
 
+                
+//                p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().agregarReserva(2, 1, "Latam").resultado,
+//                Retorno.Resultado.OK, 
+//               o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().agregarReserva(2, 1, "Latam").valorString);
+//                p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().agregarReserva(1, 1, "Latam").resultado,
+//                Retorno.Resultado.OK, 
+//               o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().agregarReserva(1, 1, "Latam").valorString);
+        
+               
+                
+        
         p.ver(o.ingresarServicio("Latam", 1, "Mascostas").resultado, Retorno.Resultado.OK, "Se agrego el servicio Mascostas al Vuelo 1 de LATAM");
         p.ver(o.ingresarServicio("Latam", 1, "Aire Acondicionado").resultado, Retorno.Resultado.OK, "Se agrego el servicio Aire Acondicionado al Vuelo 1 de LATAM");
         p.ver(o.ingresarServicio("Latam", 1, "Equipaje Extra").resultado, Retorno.Resultado.OK, "Se agrego el servicio Equipaje Extra al Vuelo 1 de LATAM");
@@ -56,13 +67,67 @@ public class OblMarzo2021 {
         
         p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje1",1).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje");
         p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje2",2).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje2");
-        p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje6",6).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje3");
+        p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje3",3).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje3");
+        
+        p.ver(o.ingresarComentario("Gol", 2, "Un gran viaje4",1).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje4");
+        p.ver(o.ingresarComentario("Gol", 2, "Un gran viaje5",2).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje5");
+        p.ver(o.ingresarComentario("Gol", 2, "Un gran viaje6",3).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje6");
          
         p.ver(o.borrarServicio("Latam", 1, "Aire Acondicionado").resultado, Retorno.Resultado.OK, "Se borro el servicio Aire Acondicionado del Vuelo 1 de LATAM ");
         p.ver(o.lVuelos.getInicio().getLs().mostrar().resultado, Retorno.Resultado.OK, "Lista servicios vuelo LATAM: " + o.lVuelos.getInicio().getLs().mostrar().valorString);
         p.ver(o.lCiudades.mostrar().resultado, Retorno.Resultado.OK, "\n\nLista ciudades : \n" + o.lCiudades.mostrar().valorString);
         p.ver(o.lVuelos.getInicio().getLc().mostrar().resultado, Retorno.Resultado.OK, "\n\nLista Comentarios : \n" + o.lVuelos.getInicio().getLc().mostrar().valorString);
-        p.inicializarResultadosPrueba();
+        
+        
+        
+        //----------------------------
+//        p.ver(o.crearSistemaReservas().resultado, Retorno.Resultado.OK, "se creo el sistema de reservas");
+        p.ver(o.registrarCiudad(1, "A").resultado, Retorno.Resultado.OK, "Se registro A");
+        p.ver(o.registrarCiudad(0, "B").resultado, Retorno.Resultado.OK, "Se registro B");
+        p.ver(o.registrarCiudad(2, "C").resultado, Retorno.Resultado.OK, "Se registro C");
+        p.ver(o.registrarCiudad(3, "D").resultado, Retorno.Resultado.OK, "Se registro D");
+        p.ver(o.registrarCiudad(4, "E").resultado, Retorno.Resultado.OK, "Se registro E");
+
+        p.ver(o.registrarCiudad(5, "F").resultado, Retorno.Resultado.ERROR, "Se intenta registrar F - excede limite");
+        p.ver(o.registrarCiudad(6, "G").resultado, Retorno.Resultado.ERROR, "Se intenta registrar g - excede limite");
+        
+         
+         p.ver(o.realizarReserva(1, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+       
+         p.ver(o.realizarReserva(1, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+           p.ver(o.realizarReserva(2, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+           
+           
+            p.ver(o.cancelarReserva(1, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+//          p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().borrarReserva(1, 1, "Latam").resultado,
+//                Retorno.Resultado.OK,"Se registro reserva");
+        
+        //-----------------------------
+        // ver si agrega bien las ciudades al sistema de reservas  
+        System.out.println("Listado de ciudades ingresadas");
+         p.ver(o.lCiudades.mostrar().resultado, Retorno.Resultado.OK, "\n\nLista ciudades : \n" + o.lCiudades.mostrar().valorString);
+         p.ver(o.lVuelos.mostrar().resultado, Retorno.Resultado.OK, "\n\nLista ciudades : \n" + o.lVuelos.mostrar().valorString);
+        p.ver(o.listarComentarios(1,"Latam").resultado, Retorno.Resultado.OK,o.listarComentarios(1,"Latam").valorString);
+          p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().mostrar().resultado,
+                Retorno.Resultado.OK, 
+               o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().mostrar().valorString);
+          
+          p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLcola().mostrar().resultado,
+                Retorno.Resultado.OK, 
+               o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLcola().mostrar().valorString);
+//         NodoVuelo n = o.lVuelos.getInicio();
+//         while(n!=null){
+//             System.out.println(n.getLc().mostrar().valorString); 
+//             n = n.getSiguiente();
+//             
+//         }
+//         o.lVuelos.getUltimo().getLc().mostrar();
+         p.inicializarResultadosPrueba();
+    
     }
 
 }

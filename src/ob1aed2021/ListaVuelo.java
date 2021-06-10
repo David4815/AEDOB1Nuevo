@@ -61,8 +61,8 @@ public class ListaVuelo implements IListaVuelo {
         
         ret.valorbooleano = false;
         if (!this.buscarElemento(numero,aerolinea).valorbooleano && cantidadEstrellas >= 1 && cantidadEstrellas <= 5
-                && capacidadPasajeros >= 0 && duracion >= 0 && ob.lCiudades.buscarElemento2(ciudadOrigen).valorbooleano 
-                && ob.lCiudades.buscarElemento2(ciudadDestino).valorbooleano &&
+                && capacidadPasajeros >= 0 && duracion >= 0 && ob.lCiudades.buscarElemento(ciudadOrigen).valorbooleano 
+                && ob.lCiudades.buscarElemento(ciudadDestino).valorbooleano &&
                 !this.buscarOrigenDestino(ciudadOrigen, ciudadDestino).valorbooleano) {
             ret.valorbooleano = true;
             NodoVuelo nuevo = new NodoVuelo(numero, aerolinea, ciudadOrigen, ciudadDestino, cantidadEstrellas, capacidadPasajeros,fechaHoraSalida,duracion);

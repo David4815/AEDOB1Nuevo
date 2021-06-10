@@ -56,7 +56,7 @@ public class ListaCiudades implements IListaCiudades {
     public Retorno agregarciudad(String nombreCiudad, int id) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorbooleano = false;
-        if (!this.buscarElemento(nombreCiudad, id).valorbooleano) {
+        if (!this.buscarElemento(nombreCiudad).valorbooleano && !this.buscarElemento2(id).valorbooleano) {
             ret.valorbooleano = true;
             NodoCiudad nuevo = new NodoCiudad(nombreCiudad, id);
             //Control sobre la lista
@@ -150,44 +150,69 @@ public class ListaCiudades implements IListaCiudades {
         return ret;
     }
 
-    @Override
-    public Retorno buscarElemento(String unNombreCiudad, int id) {
+
+//    public Retorno buscarElemento(String unNombreCiudad, int id) {
+//        Retorno ret = new Retorno(Retorno.Resultado.OK);
+//        NodoCiudad aux = this.getInicio();
+//        ret.valorbooleano = false;
+//        ret.valorEntero = 3;
+//        while (aux != null) {
+//            if (aux.getNombre().equals(unNombreCiudad) && aux.getId() == id) {
+//                ret.valorbooleano = true;
+//                ret.unNodoCiudad = aux;
+//                ret.valorEntero = 0;
+//                return ret;
+//            }else if(aux.getNombre().equals(unNombreCiudad)){
+//                ret.valorEntero=1;
+//            }else if(aux.getId()==id){
+//                ret.valorEntero=2;
+//            }
+//            aux = aux.getSiguiente();
+//        }
+//        return ret;
+//
+//    }
+        @Override
+     public Retorno buscarElemento(String unNombreCiudad) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         NodoCiudad aux = this.getInicio();
         ret.valorbooleano = false;
+       
         while (aux != null) {
-            if (aux.getNombre().equals(unNombreCiudad) && aux.getId() == id) {
+          if(aux.getNombre().equals(unNombreCiudad)){
+                
                 ret.valorbooleano = true;
-                ret.unNodoCiudad = aux;
-                return ret;
+                ret.unNodoCiudad = aux;            
+        }
+          aux = aux.getSiguiente();
+        }
+        return ret;
+
+    }
+     @Override
+    public Retorno buscarElemento2(int id) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoCiudad aux = this.getInicio();
+        ret.valorbooleano = false;        
+        while (aux != null) {
+            if(aux.getId()==id){
+                 ret.valorbooleano = true;                             
             }
             aux = aux.getSiguiente();
         }
         return ret;
 
     }
+     
 
-    public Retorno buscarElemento2(String unNombreCiudad) {
-        Retorno ret = new Retorno(Retorno.Resultado.OK);
-        NodoCiudad aux = this.getInicio();
-        ret.valorbooleano = false;
-        while (aux != null) {
-            if (aux.getNombre().equals(unNombreCiudad)) {
-
-                ret.valorbooleano = true;
-                return ret;
-            }
-            aux = aux.getSiguiente();
-        }
-        return ret;
-
-    }
+    
+    
 
     @Override
     public Retorno eliminarElemento(String unNombreCiudad, int id) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorbooleano = false;
-        NodoCiudad buscado = this.buscarElemento(unNombreCiudad, id).unNodoCiudad;
+        NodoCiudad buscado = this.buscarElemento(unNombreCiudad).unNodoCiudad;
         NodoCiudad aux = this.getInicio();
         if (buscado != null) {
             ret.valorbooleano = true;

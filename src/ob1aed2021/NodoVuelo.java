@@ -11,9 +11,37 @@ import java.util.logging.Logger;
 
 public class NodoVuelo {
 
+    NodoVuelo anterior;
     NodoVuelo siguiente;
     private ListaServicios ls;
     private ListaComentarios lc;
+    private ListaReservas lr;
+    private ListaCola lcola;
+
+    public ListaCola getLcola() {
+        return lcola;
+    }
+
+    public void setLcola(ListaCola lcola) {
+        this.lcola = lcola;
+    }
+
+    public NodoVuelo getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(NodoVuelo anterior) {
+        this.anterior = anterior;
+    }
+
+    public ListaReservas getLr() {
+        return lr;
+    }
+
+    public void setLr(ListaReservas lr) {
+        this.lr = lr;
+    }
+    
     
 
     private int numero;
@@ -40,6 +68,8 @@ public class NodoVuelo {
         this.duracion = duracion;
         this.ls = new ListaServicios();
         this.lc = new ListaComentarios();
+        this.lr = new ListaReservas(capacidadPasajeros);
+        this.lcola = new ListaCola(capacidadPasajeros);
         this.siguiente = null;
     }
 

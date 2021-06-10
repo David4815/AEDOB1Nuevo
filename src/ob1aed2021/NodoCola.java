@@ -1,26 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ob1aed2021;
 
-public class NodoReserva {
+public class NodoCola {
+   
+    
 
     private int cliente;
     private int numero;
     private String aerolinea;
-    private NodoReserva siguiente;
+    NodoCola siguiente;
 
-    public NodoReserva getSiguiente() {
+    public NodoCola getSiguiente() {
         return siguiente;
     }
 
-    public void setSiguiente(NodoReserva siguiente) {
+    public void setSiguiente(NodoCola siguiente) {
         this.siguiente = siguiente;
     }
 
-    public NodoReserva(int cliente, int numero, String aerolinea) {
+    public NodoCola(int cliente, int numero, String aerolinea) {
         this.cliente = cliente;
         this.numero = numero;
         this.aerolinea = aerolinea;
@@ -50,5 +48,6 @@ public class NodoReserva {
     public void setAerolinea(String aerolinea) {
         this.aerolinea = aerolinea;
     }
-
+    
+    
 }

@@ -78,12 +78,20 @@ public class ListaComentarios implements IListaComentarios {
     @Override
     public Retorno mostrar() {
          Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString = "";
-        NodoComentario aux = this.getInicio();
+        ret.valorString = "\n";
+        int cont = 0;
+        NodoComentario aux = this.getInicio();       
         while (aux != null) {
-            ret.valorString = ret.valorString + aux.getComentario() + " - " + aux.getRanking() + " - \n";
+            if(cont==0){
+                ret.valorString = ret.valorString + "N" + " - " + "Comentario N" + " - " + "Ranking N" + "  \n";
+                cont++;
+            }
+            
+            ret.valorString = ret.valorString + cont + " - " +  aux.getComentario() + " - " + aux.getRanking() + "  \n";
             aux = aux.getSiguiente();
+             cont++;
         }
+        
         return ret;
     }
     

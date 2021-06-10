@@ -17,7 +17,8 @@ public interface IListaCiudades {
     public Retorno borrarUltimo();
     public Retorno mostrar();
     public Retorno cantidadciudades();
-    public Retorno buscarElemento(String unNombreCiudad, int id);
+    public Retorno buscarElemento(String unNombreCiudad);
+    public Retorno buscarElemento2(int id);
     public Retorno eliminarElemento(String unNombreCiudad, int id);
     
     
