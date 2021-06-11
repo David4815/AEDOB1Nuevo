@@ -71,7 +71,7 @@ public class ListaCola implements ICola {
     }
 
     @Override
-    public Retorno desencolar(int cliente, int numero, String aerolinea) {
+    public Retorno desencolar() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorbooleano = false;
         if (!this.esVacia().valorbooleano){
@@ -139,4 +139,83 @@ public class ListaCola implements ICola {
         return ret;
     }
 
+    @Override
+    public Retorno buscarElemento(int cliente, int numero, String aerolinea) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoCola aux = this.getPrimero();
+        while (aux != null) {
+            if (aux.getCliente()==cliente && aux.getNumero()==numero && aux.getAerolinea().equals(aerolinea)) {
+                ret.unNodoCola = aux;
+                return ret;
+            }
+            aux = aux.getSiguiente();
+        }
+        return ret;
+    }
+
+    @Override
+    public Retorno borrarEnCola(int cliente, int numero, String aerolinea) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoCola aux = this.getPrimero();
+        ret.valorbooleano = false;  
+        NodoCola buscado = buscarElemento(cliente,numero,aerolinea).unNodoCola;
+
+        if (buscado != null) {
+            if (this.primero == buscado) {
+                this.borrarInicio();
+            } else {
+                if (this.ultimo == buscado) {
+                    this.borrarUltimo();
+                } else {
+
+                    while (aux.getSiguiente() != buscado) {
+
+                        aux = aux.getSiguiente();
+                    }
+                    aux.setSiguiente(buscado.getSiguiente());
+                    this.cantelementos = this.cantelementos - 1;
+                }
+            }
+              ret.valorbooleano = true;  
+        }
+        return ret;
+    }
+    
+     @Override
+    public Retorno borrarInicio() {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        if (esVacia().valorbooleano == false) {
+            if (this.getPrimero() == this.getUltimo()) {
+                this.setPrimero(null);
+                this.setUltimo(null);
+            } else {
+                this.setPrimero(this.primero.getSiguiente());
+            }
+            this.cantelementos = this.cantelementos - 1;
+        } else {
+            System.out.println("La lista esta vacia ");
+        }
+        return ret;
+    }
+
+    @Override
+    public Retorno borrarUltimo() {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        if (esVacia().valorbooleano == false) {
+            if (this.getPrimero() == this.getUltimo()) {
+                this.setPrimero(null);
+                this.setUltimo(null);
+            } else {
+                NodoCola aux = this.getPrimero();
+                while (aux.getSiguiente() != this.getUltimo()) {
+                    aux = aux.getSiguiente();
+                }
+
+                aux.setSiguiente(null); // aux.siguiente= null
+                this.setUltimo(aux);   // this.ultimo=aux
+            }
+            this.cantelementos = this.cantelementos - 1;
+        }
+        return ret;
+    }
 }

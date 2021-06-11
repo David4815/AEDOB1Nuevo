@@ -157,4 +157,19 @@ public class NodoVuelo {
         return duracion;
     }
 
+    public Retorno calcularRanking(){
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        int suma = 0;
+        NodoComentario unNodoComentario = lc.getInicio();
+        while(unNodoComentario!=null){
+            
+            suma = suma + unNodoComentario.getRanking();         
+            
+            unNodoComentario = unNodoComentario.getSiguiente();
+        }
+        ret.valorEntero = suma / this.lc.getCantComentarios();
+        
+        return ret;
+    }
+    
 }

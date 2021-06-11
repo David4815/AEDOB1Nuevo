@@ -6,6 +6,7 @@
 package ob1aed2021;
 
 import java.util.Calendar;
+import java.util.HashSet;
 
 /**
  *
@@ -152,9 +153,9 @@ public class Obligatorio implements IObligatorio {
 
         NodoVuelo unNodoVuelo = lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo;
 //        IMPORTATNE DONDE DA EL ERROR COMO SE MUESTRA
-        if (unNodoVuelo != null && ranking>=0 && ranking<=5) {
+        if (unNodoVuelo != null && ranking >= 0 && ranking <= 5) {
             ret.valorbooleano = unNodoVuelo.getLc().agregarComentario(comentario, ranking).valorbooleano;
-                 
+
             ret.valorString = "Se agrego su comentario al vuelo";
         }
         return ret;
@@ -162,49 +163,86 @@ public class Obligatorio implements IObligatorio {
 
     @Override
     public Retorno realizarReserva(int cliente, int numero, String aerolinea) {
-     Retorno ret = new Retorno(Retorno.Resultado.OK);
-         
-     ret.valorbooleano = this.lVuelos.buscarElemento(numero, aerolinea)
-     .unNodoVuelo.getLr().agregarReserva(cliente, numero, aerolinea)
-     .valorbooleano;
-          if(!ret.valorbooleano){
-                ret.valorbooleano = this.lVuelos.
-                buscarElemento(numero, aerolinea)
-                .unNodoVuelo.getLcola().Encolar(cliente, numero, aerolinea)
-                .valorbooleano;                
-          }
-         
-                 return ret;
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+
+        ret.valorbooleano = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().agregarReserva(cliente, numero, aerolinea).valorbooleano;
+        if (!ret.valorbooleano) {
+            ret.valorbooleano = this.lVuelos.
+                    buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().Encolar(cliente, numero, aerolinea).valorbooleano;
+        }
+
+        return ret;
     }
 
     @Override
     public Retorno cancelarReserva(int cliente, int numero, String aerolinea) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        boolean esLlenaReservas = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().esLlena().valorbooleano;    
+        boolean esLlenaReservas = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().esLlena().valorbooleano;
         boolean esVaciaCola = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().esVacia().valorbooleano;
-        if(esLlenaReservas && !esVaciaCola){
-            this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().borrarReserva(cliente, numero, aerolinea);
-           NodoCola unNodoCola = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().desencolar(cliente, numero, aerolinea).unNodoCola;
-           this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr()
-           .agregarReserva(unNodoCola.getCliente(), unNodoCola.getNumero(), unNodoCola.getAerolinea());
-           
-        
-        }else if(esVaciaCola){
+        ret.valorbooleano = true;
+        if (esLlenaReservas && !esVaciaCola) {
+            NodoCola unNodoCola = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().buscarElemento(cliente, numero, aerolinea).unNodoCola;
+            NodoReserva unNodoReserva = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().buscarElemento(cliente, numero, aerolinea).unNodoReserva;
+            if (unNodoCola == null && unNodoReserva == null) {
+                ret.valorbooleano = false;
+                return ret;
+            } else if (unNodoReserva != null) {
+                this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().
+                borrarReserva(cliente, numero, aerolinea);
+                NodoCola otroNodoCola = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.
+                getLcola().desencolar().unNodoCola;
+                this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr()
+                .agregarReserva(otroNodoCola.getCliente(), otroNodoCola.getNumero(), otroNodoCola.getAerolinea());
+
+            } else if (unNodoCola != null && unNodoReserva == null) {
+                this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLcola().borrarEnCola(cliente, numero, aerolinea);
+            }
+
+        } else if (esVaciaCola) {
             ret.valorbooleano = this.lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo.getLr().borrarReserva(cliente, numero, aerolinea).valorbooleano;
         }
-    
-        
+
         return ret;
     }
 
     @Override
     public Retorno listarServicios(int numero, String aerolinea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoVuelo unVuelo = lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo;
+        ret.valorString = unVuelo.getLs().mostrar().valorString;
+        if (ret.valorString.equals("\n")) {
+            ret.valorString = "No se han agregado servicios al vuelo numero " + numero + " de la aerolinea " + aerolinea + ".";
+        }
+        return ret;
     }
 
     @Override
     public Retorno listarVuelosAerolinea(String aerolinea) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Retorno ret = new Retorno(Retorno.Resultado.OK); 
+        ListaVuelo lVuelosBuscada = new ListaVuelo();
+        NodoVuelo nodoVueloAux = lVuelos.getInicio();
+         while(nodoVueloAux!=null){
+             if(nodoVueloAux.getAerolinea().equals(aerolinea)){
+                 lVuelosBuscada.agregarVuelo(
+                         nodoVueloAux.getNumero(),
+                         aerolinea,
+                         nodoVueloAux.getCiudadOrigen(),
+                         nodoVueloAux.getCiudadDestino(),
+                         nodoVueloAux.getCantidadEstrellas(),
+                         nodoVueloAux.getCapacidadPasajeros(),
+                         nodoVueloAux.getFechaHoraSalida(),
+                         nodoVueloAux.getDuracion(),                        
+                         this);
+                 
+                lVuelosBuscada.buscarElemento(nodoVueloAux.getNumero(), aerolinea).unNodoVuelo.setLc(nodoVueloAux.getLc());
+                 
+             }
+             
+             nodoVueloAux = nodoVueloAux.getSiguiente();
+         }
+         ret.valorString = lVuelosBuscada.MostrarVuelosXAerolineaXCiudadXRanking(aerolinea).valorString;
+        
+        return ret;
     }
 
     @Override
@@ -215,10 +253,11 @@ public class Obligatorio implements IObligatorio {
     @Override
     public Retorno listarComentarios(int numero, String aerolinea) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        NodoVuelo unVuelo =  lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo;
+        NodoVuelo unVuelo = lVuelos.buscarElemento(numero, aerolinea).unNodoVuelo;
         ret.valorString = unVuelo.getLc().mostrar().valorString;
-        if(ret.valorString.equals("\n"))
-            ret.valorString = "No se han agregado comentarios al vuelo numero " + numero +" de la aerolinea "+ aerolinea + "." ;       
+        if (ret.valorString.equals("\n")) {
+            ret.valorString = "No se han agregado comentarios al vuelo numero " + numero + " de la aerolinea " + aerolinea + ".";
+        }
         return ret;
     }
 

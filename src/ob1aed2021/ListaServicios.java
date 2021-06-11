@@ -76,11 +76,14 @@ public class ListaServicios implements IListaServicios {
     @Override
     public Retorno mostrar() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString = "";
+        int cont=1;
+        ret.valorString = "\n";
         NodoServicio aux = this.getInicio();
         while (aux != null) {
-            ret.valorString = ret.valorString + aux.getServicio() + " - ";
+           
+            ret.valorString = ret.valorString + cont + " - " + aux.getServicio() + "\n";
             aux = aux.getSiguiente();
+            cont++;
         }
         return ret;
     }

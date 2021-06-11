@@ -47,9 +47,10 @@ public class OblMarzo2021 {
 
         p.ver(o.registrarVuelo(3, "Copa Airlines", "Montevideo", "Panama", 5, 230, cal, 8).resultado, Retorno.Resultado.OK, "Se registro vuelo  Montevideo-San Pablo ");
         p.ver(o.registrarVuelo(2, "Gol", "Montevideo", "San Pablo", 3, 250, cal, 1).resultado, Retorno.Resultado.OK, "Se registro vuelo  Montevideo-San Pablo ");
-        p.ver(o.registrarVuelo(1, "Latam", "Montevideo", "Buenos Aires", 4, 2, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
-
-                
+        p.ver(o.registrarVuelo(1, "Latam", "Montevideo", "Buenos Aires", 4, 4, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
+        p.ver(o.registrarVuelo(4, "Latam", "Montevideo", "La Paz", 4, 4, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
+         p.ver(o.registrarVuelo(5, "Latam", "Panama", "La Paz", 4, 4, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
+         p.ver(o.registrarVuelo(6, "Latam", "Panama", "La Paz", 4, 4, cal, 2).resultado, Retorno.Resultado.OK, "Se registro vuelo Montevideo-Buenos aires");
 //                p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().agregarReserva(2, 1, "Latam").resultado,
 //                Retorno.Resultado.OK, 
 //               o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().agregarReserva(2, 1, "Latam").valorString);
@@ -65,9 +66,11 @@ public class OblMarzo2021 {
         p.ver(o.ingresarServicio("Latam", 1, "Equipaje Extra").resultado, Retorno.Resultado.OK, "Se agrego el servicio Equipaje Extra al Vuelo 1 de LATAM");
         p.ver(o.ingresarServicio("Latam", 1, "Comida Vegana").resultado, Retorno.Resultado.OK, "Se agrego el servicio Comida Vegana al Vuelo 1 de LATAM");
         
-        p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje1",1).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje");
+        p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje1",4).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje");
         p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje2",2).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje2");
-        p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje3",3).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje3");
+        p.ver(o.ingresarComentario("Latam", 1, "Un gran viaje3",1).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje3");
+         p.ver(o.ingresarComentario("Latam", 4, "Un gran viaje3",1).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje3");
+        
         
         p.ver(o.ingresarComentario("Gol", 2, "Un gran viaje4",1).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje4");
         p.ver(o.ingresarComentario("Gol", 2, "Un gran viaje5",2).resultado, Retorno.Resultado.OK, "Se un comentario un gran viaje5");
@@ -93,16 +96,33 @@ public class OblMarzo2021 {
         
          
          p.ver(o.realizarReserva(1, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");     
+         p.ver(o.realizarReserva(2, 1, "Latam").resultado,
                 Retorno.Resultado.OK,"Se registro reserva");
-       
-         p.ver(o.realizarReserva(1, 1, "Latam").resultado,
+           p.ver(o.realizarReserva(3, 1, "Latam").resultado,
                 Retorno.Resultado.OK,"Se registro reserva");
-           p.ver(o.realizarReserva(2, 1, "Latam").resultado,
+             p.ver(o.realizarReserva(4, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+             
+             
+             p.ver(o.realizarReserva(5, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");   
+         p.ver(o.realizarReserva(4, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+           p.ver(o.realizarReserva(7, 1, "Latam").resultado,
+                Retorno.Resultado.OK,"Se registro reserva");
+             p.ver(o.realizarReserva(8, 1, "Latam").resultado,
                 Retorno.Resultado.OK,"Se registro reserva");
            
            
-            p.ver(o.cancelarReserva(1, 1, "Latam").resultado,
+            p.ver(o.cancelarReserva(4, 1, "Latam").resultado,
                 Retorno.Resultado.OK,"Se registro reserva");
+//            p.ver(o.cancelarReserva(2, 1, "Latam").resultado,
+//                Retorno.Resultado.OK,"Se registro reserva");
+//             p.ver(o.cancelarReserva(4, 1, "Latam").resultado,
+//                Retorno.Resultado.OK,"Se registro reserva");
+//             p.ver(o.cancelarReserva(7, 1, "Latam").resultado,
+//                Retorno.Resultado.OK,"Se registro reserva");
 //          p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLr().borrarReserva(1, 1, "Latam").resultado,
 //                Retorno.Resultado.OK,"Se registro reserva");
         
@@ -119,6 +139,16 @@ public class OblMarzo2021 {
           p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLcola().mostrar().resultado,
                 Retorno.Resultado.OK, 
                o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.getLcola().mostrar().valorString);
+          
+          
+          p.ver(o.listarServicios(1,"Latam").resultado, Retorno.Resultado.OK,o.listarServicios(1,"Latam").valorString);
+          p.ver(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.calcularRanking().resultado,
+                Retorno.Resultado.OK, 
+               Integer.toString(o.lVuelos.buscarElemento(1, "Latam").unNodoVuelo.calcularRanking().valorEntero));
+          
+          p.ver(o.listarVuelosAerolinea("Latam").resultado, Retorno.Resultado.OK,o.listarVuelosAerolinea("Latam").valorString);
+          
+             
 //         NodoVuelo n = o.lVuelos.getInicio();
 //         while(n!=null){
 //             System.out.println(n.getLc().mostrar().valorString); 

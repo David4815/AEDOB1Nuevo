@@ -5,6 +5,7 @@
  */
 package ob1aed2021;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -147,6 +148,40 @@ public class ListaVuelo implements IListaVuelo {
             aux = aux.getSiguiente();
         }
         return ret;
+    }
+    
+    public Retorno MostrarVuelosXAerolineaXCiudadXRanking(String Aerolinea){
+         Retorno ret = new Retorno(Retorno.Resultado.OK);
+         
+         
+         NodoVuelo auxiliar = this.getInicio();
+         NodoVuelo auxiliar2 = this.getInicio();
+         ArrayList lista = new ArrayList();
+        ret.valorString = "Vuelos de la aerolinea " + Aerolinea + "\n" ;
+        //Control sobre la lista no este vacia
+        if (esVacia().valorbooleano == false) {
+            //Toma aux como el primer elemento de la lista
+            while (auxiliar != null && !lista.contains(auxiliar.getCiudadOrigen())) {
+                 String ciudad = auxiliar.getCiudadOrigen();
+                 lista.add(ciudad);
+                 ret.valorString = ret.valorString + ciudad + "\n";
+                 while ( auxiliar2!= null){
+                     if(auxiliar2.getCiudadOrigen().equals(ciudad)){
+                               ret.valorString= ret.valorString 
+                               + "<"+auxiliar2.getNumero() + ">" 
+                               + "<"+auxiliar2.getCiudadDestino() + ">"
+                               + "<"+auxiliar2.getCantidadEstrellas() + ">"
+                               + "<"+Integer.toString(auxiliar2.calcularRanking().valorEntero) + ">\n";
+                   }  
+                    auxiliar2 = auxiliar2.getSiguiente(); 
+                 }
+                 auxiliar = auxiliar.getSiguiente(); 
+                 auxiliar2 = auxiliar;   
+            }
+        } else {
+            ret.valorString = "La lista esta vacia ";
+        }                                            
+              return ret;
     }
     
 }
